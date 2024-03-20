@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 var cors = require("cors");
 const server = require("http").createServer(app);
-
+const connectDB = require("./config/db.js");
+const frontendUrl = "http://localhost:5173";
 dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -21,7 +22,7 @@ app.use("/api/chats", chatRoutes);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: frontendUrl,
     methods: ["GET", "POST"],
   },
 });
@@ -51,13 +52,10 @@ io.on("connection", (socket) => {
   });
 });
 
-mongoose.connect(
-  "mongodb://localhost/wysa-auth-DB",
-  console.log("DB connected"),
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  }
-);
+connectDB().then(() => {
+  //run listen
+  server.listen(PORT, () =>
+      console.log("Server is live " + PORT)
+    );
+});
 
-server.listen(3000, () => console.log("Server is live"));
