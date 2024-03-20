@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 var cors = require("cors");
 const server = require("http").createServer(app);
 const connectDB = require("./config/db.js");
-const frontendUrl = "https://wysa-server-1.onrender.com";
+const frontendUrl = "https://toheed-wysa.netlify.app/";
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://toheed-wysa.netlify.app/",
   "https://wysa-server-55og.onrender.com",
   "https://wysa-server-55og.onrender.com",
 ];
