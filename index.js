@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 var cors = require("cors");
 const server = require("http").createServer(app);
 const connectDB = require("./config/db.js");
-const frontendUrl = "http://localhost:5173";
+const frontendUrl = "https://toheed-wysa.netlify.app/";
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
