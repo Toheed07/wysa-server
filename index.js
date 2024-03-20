@@ -11,6 +11,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://wysa-server-55og.onrender.com",
+  "https://wysa-server-55og.onrender.com",
+];
+const origin = req.headers.origin;
+if (allowedOrigins.includes(origin)) {
+  res.setHeader("Access-Control-Allow-Origin", origin);
+}
+res.header(
+  "Access-Control-Allow-Headers",
+  "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+);
+res.header("Access-Control-Allow-credentials", true);
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+next();
 
 // Import Routes
 const authRoutes = require("./routes/auth");
@@ -54,8 +70,5 @@ io.on("connection", (socket) => {
 
 connectDB().then(() => {
   //run listen
-  server.listen(PORT, () =>
-      console.log("Server is live " + PORT)
-    );
+  server.listen(PORT, () => console.log("Server is live " + PORT));
 });
-
