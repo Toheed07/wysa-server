@@ -22,3 +22,8 @@ We use JSON Web Tokens (jsonwebtoken) to authenticate users and protect API rout
 User passwords are hashed using bcryptjs.
 
 User email and password are validated using @hapi/joi.
+
+# Result
+
+https://github.com/Toheed07/wysa-server/assets/71722636/a535a7b1-967b-4457-8440-00115d9ebce4
+
