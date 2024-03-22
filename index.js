@@ -4,29 +4,40 @@ const dotenv = require("dotenv");
 var cors = require("cors");
 const server = require("http").createServer(app);
 const connectDB = require("./config/db.js");
-const frontendUrl = "https://wysa-server-1.onrender.com";
+const frontendUrl = "https://toheed-wysa.netlify.app";
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://wysa-server-55og.onrender.com",
-  "https://wysa-server-55og.onrender.com",
+  "https://toheed-wysa.netlify.app/",
+  "https://toheed-wysa.netlify.app",
+  "http://gamebrag.onrender.com",
+  "https://gamebrag.onrender.com",
+  undefined
 ];
-const origin = req.headers.origin;
-if (allowedOrigins.includes(origin)) {
-  res.setHeader("Access-Control-Allow-Origin", origin);
-}
-res.header(
-  "Access-Control-Allow-Headers",
-  "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-);
-res.header("Access-Control-Allow-credentials", true);
-res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
-next();
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Not allowed by CORS from origin : ${origin}`));
+    }
+  },
+  credentials: true
+};
+
+// app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
+
 
 // Import Routes
 const authRoutes = require("./routes/auth");
