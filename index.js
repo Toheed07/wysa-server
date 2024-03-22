@@ -49,7 +49,7 @@ app.use("/api/chats", chatRoutes);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: frontendUrl,
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
