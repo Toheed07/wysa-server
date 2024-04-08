@@ -1,3 +1,7 @@
+# Video
+
+https://github.com/Toheed07/wysa-server/assets/71722636/22c6e0d0-6e33-43f8-bcb9-7b86a0fa303d
+
 # Server
 
 This is the server for our chat application. It uses Node.js, Express, and Socket.IO.
